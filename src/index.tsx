@@ -24,3 +24,10 @@ export function multiply(a: number, b: number): Promise<number> {
 export function say(s: string): Promise<string> {
   return Verzettled.say(s);
 }
+
+export function initZettle(
+  clientId: string,
+  callbackURL: string
+): Promise<string> {
+  return Verzettled.initZettle(clientId, callbackURL);
+}

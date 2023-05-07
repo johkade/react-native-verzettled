@@ -1,24 +1,35 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply, say } from 'react-native-verzettled';
+import { StyleSheet, Text, View } from 'react-native';
+import { initZettle, say } from 'react-native-verzettled';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
       <Text
+        style={{ marginBottom: 100 }}
         onPress={async () => {
-          const resp = await say('Hello World');
-          console.log(resp);
+          const result = await say('99999999-9999-9999-9999-999999999999');
+          console.log(result);
         }}
       >
-        Result: {result}
+        say
+      </Text>
+      <Text
+        onPress={async () => {
+          try {
+            const result = await initZettle(
+              '2328be19-2f9a-481f-a26e-34a879f9b8d5',
+              'zettledemo://zettlecallback'
+            );
+            console.log(result);
+          } catch (error) {
+            console.log(error);
+            console.log(JSON.stringify(error));
+          }
+        }}
+      >
+        init
       </Text>
     </View>
   );
@@ -29,6 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   box: {
     width: 60,
