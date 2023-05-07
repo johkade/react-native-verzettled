@@ -1,3 +1,5 @@
+import iZettleSDK
+
 @objc(Verzettled)
 class Verzettled: NSObject {
 
