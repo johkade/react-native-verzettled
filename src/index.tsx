@@ -31,3 +31,8 @@ export function initZettle(
 ): Promise<string> {
   return Verzettled.initZettle(clientId, callbackURL);
 }
+
+export function showSettingsView(s: string): Promise<string> {
+  if (s) console.log(s);
+  return Verzettled.showSettingsView(s);
+}
