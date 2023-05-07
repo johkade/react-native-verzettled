@@ -20,3 +20,7 @@ const Verzettled = NativeModules.Verzettled
 export function multiply(a: number, b: number): Promise<number> {
   return Verzettled.multiply(a, b);
 }
+
+export function say(s: string): Promise<string> {
+  return Verzettled.say(s);
+}

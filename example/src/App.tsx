@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-verzettled';
+import { multiply, say } from 'react-native-verzettled';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
@@ -12,7 +12,14 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text
+        onPress={async () => {
+          const resp = await say('Hello World');
+          console.log(resp);
+        }}
+      >
+        Result: {result}
+      </Text>
     </View>
   );
 }
