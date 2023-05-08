@@ -35,3 +35,7 @@ export function initZettle(
 export function showSettingsView(): Promise<string> {
   return Verzettled.showSettingsView();
 }
+
+export function charge(amount: number): Promise<string> {
+  return Verzettled.charge(amount);
+}

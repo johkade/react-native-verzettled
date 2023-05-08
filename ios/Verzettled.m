@@ -18,6 +18,10 @@ RCT_EXTERN_METHOD(initZettle:(NSString *)clientId callbackURL:(NSString *)cbu
 RCT_EXTERN_METHOD(showSettingsView:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);
 
+RCT_EXTERN_METHOD(charge:(float)a
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;

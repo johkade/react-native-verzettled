@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
-import { initZettle, say, showSettingsView } from 'react-native-verzettled';
+import {
+  initZettle,
+  say,
+  showSettingsView,
+  charge,
+} from 'react-native-verzettled';
 import Config from './config.json';
 
 export default function App() {
@@ -41,6 +46,15 @@ export default function App() {
         }}
       >
         showSettingsView
+      </Text>
+      <Text
+        style={styles.button}
+        onPress={async () => {
+          const result = await charge(5);
+          console.log(result);
+        }}
+      >
+        charge
       </Text>
     </View>
   );

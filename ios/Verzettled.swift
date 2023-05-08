@@ -69,7 +69,7 @@ class Verzettled: NSObject {
             let controller = (delegate?.window as? UIWindow)?.rootViewController as? UIViewController
             
             if(controller == nil){
-                reject("failed_initialization", "Failed to find UIViewController", nil)
+                reject("failed_showing_settings", "Failed to find UIViewController", nil)
                 return
             }else {
                 iZettleSDK.shared().presentSettings(from: controller!)
@@ -79,10 +79,55 @@ class Verzettled: NSObject {
             }
         } catch let error {
             // Handle the error and signal that the function has completed
-            reject("failed_initialization", "Failed to initialize", error)
+            reject("failed_showing_settings", "Failed to show settings", error)
             group.leave()
         }
       }
   }
+
+  @objc(charge:withResolver:withRejecter:)
+  func charge(a: NSDecimalNumber, resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) -> Void {
+    if(!self.wasInitialized){
+        reject("failed_showing_settings", "Not initialized", nil)
+        return
+      }
+      
+    let group = DispatchGroup()
+    group.enter()
+
+    DispatchQueue.main.async {
+      do {
+        let delegate = (UIApplication.shared as UIApplication).delegate
+        let controller = (delegate?.window as? UIWindow)?.rootViewController as? UIViewController
+        
+          if #available(iOS 13.0, *) {
+              if(controller == nil){
+                reject("failed_charging", "Failed to find UIViewController", nil)
+                return
+              } else {
+                  Task {
+                  try (await iZettleSDK.shared().charge(amount: a, tippingStyle: IZSDKTippingStyle.none, reference: "myReference", presentFrom: controller!))
+                  }
+                group.leave()
+                group.wait()
+                resolve("Okay")
+              }
+          } else {
+              reject("failed_charging", "Requires ios >= 13.0", nil)
+              return
+          }
+      } catch let error {
+          // Handle the error and signal that the function has completed
+          reject("failed_charging", "Failed to charge", error)
+          group.leave()
+      }
+    }
+  }
+                    /*
+open func charge(amount: NSDecimalNumber,
+  tippingStyle: IZSDKTippingStyle,
+  reference: String?,
+  presentFrom viewController: UIViewController,
+  completion: @escaping iZettleSDK.iZettleSDKOperationCompletion) */
 
 }
