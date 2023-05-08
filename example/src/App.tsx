@@ -12,7 +12,7 @@ export default function App() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.heading}>react-native-verzettled</Text>
       <Button
-        label="initialize"
+        label={wasInitialized ? '☑ initialized' : 'initialize'}
         successful={wasInitialized}
         onPress={async () => {
           try {
