@@ -53,13 +53,12 @@ class Verzettled: NSObject {
     }
   }
 
-  @objc(showSettingsView:withResolver:withRejecter:)
-  func showSettingsView(s: String, resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) -> Void {
-      
+  @objc(showSettingsView:rejecter:)
+  func showSettingsView(resolve: @escaping RCTPromiseResolveBlock,reject: @escaping RCTPromiseRejectBlock) -> Void {
       if(!self.wasInitialized){
-      reject("failed_showing_settings", "Not initialized", nil)
-      return
-    }
+        reject("failed_showing_settings", "Not initialized", nil)
+        return
+      }
       
       let group = DispatchGroup()
       group.enter()

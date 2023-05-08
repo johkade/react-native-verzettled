@@ -36,7 +36,7 @@ export default function App() {
       <Text
         style={styles.button}
         onPress={async () => {
-          const result = await showSettingsView('');
+          const result = await showSettingsView();
           console.log(result);
         }}
       >
