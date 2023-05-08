@@ -1,73 +1,80 @@
-import * as React from 'react';
+import React, { useState } from 'react'
 
-import { StyleSheet, Text, View } from 'react-native';
-import {
-  initZettle,
-  say,
-  showSettingsView,
-  charge,
-} from 'react-native-verzettled';
-import Config from './config.json';
+import { StyleSheet, ScrollView, Text } from 'react-native'
+import * as Zettle from 'react-native-verzettled'
+import { Button } from './button'
+import Config from './config.json'
 
 export default function App() {
+  const [wasInitialized, setWasInitialized] = useState(false)
+
   return (
-    <View style={styles.container}>
-      <Text
-        style={styles.button}
-        onPress={async () => {
-          const result = await say(Config.clientId);
-          console.log(result);
-        }}
-      >
-        say
-      </Text>
-      <Text
-        style={styles.button}
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <Text style={styles.heading}>react-native-verzettled</Text>
+      <Button
+        label="initialize"
+        successful={wasInitialized}
         onPress={async () => {
           try {
-            const result = await initZettle(
+            const result = await Zettle.initZettle(
               Config.clientId,
               Config.callbackURL
-            );
-            console.log(result);
+            )
+            if (result === 'Success') {
+              setWasInitialized(true)
+            }
+            console.log(result)
           } catch (error) {
-            console.log(error);
-            console.log(JSON.stringify(error));
+            console.log(error)
+            console.log(JSON.stringify(error))
           }
         }}
-      >
-        init
-      </Text>
-      <Text
-        style={styles.button}
+      />
+
+      <Button
+        label="showSettingsView"
         onPress={async () => {
-          const result = await showSettingsView();
-          console.log(result);
+          try {
+            const result = await Zettle.showSettingsView()
+            console.log(result)
+          } catch (error) {
+            console.log(error)
+            console.log(JSON.stringify(error))
+          }
         }}
-      >
-        showSettingsView
-      </Text>
-      <Text
-        style={styles.button}
+      />
+
+      <Button
+        label="charge"
         onPress={async () => {
-          const result = await charge(5);
-          console.log(result);
+          try {
+            const result = await Zettle.charge(5)
+            console.log(result)
+          } catch (error) {
+            console.log(error)
+            console.log(JSON.stringify(error))
+          }
         }}
-      >
-        charge
-      </Text>
-    </View>
-  );
+      />
+    </ScrollView>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0a2743',
+  },
+  content: {
+    minHeight: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
   },
-  button: {
-    marginVertical: 20,
+  heading: {
+    fontSize: 32,
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 64,
+    fontWeight: '200',
   },
-});
+})
