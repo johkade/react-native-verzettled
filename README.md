@@ -3,7 +3,7 @@
 Wrapper module for iZettleSDK for iOS and Android. (WIP)
 
 > 💡 **_NOTE:_** Android is currently unsupported and will be added later, iOS is WIP.
-> 💡 **_NOTE:_** Currently there's no support for expo / eas, as there'S no config plugin yet.
+> 💡 **_NOTE:_** Currently there's no support for expo / eas, as there's no config plugin yet.
 
 ## Installation
 
@@ -13,8 +13,6 @@ cd ios && pod install
 ```
 
 ## Setup
-
-Reports -> ähnlich wie bei Stripe (report types) -> CRUD stack
 
 #### iOS Deployment target
 
